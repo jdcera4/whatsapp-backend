@@ -12,6 +12,28 @@ const rateLimit = require('express-rate-limit');
 const XLSX = require('xlsx');
 const { v4: uuidv4 } = require('uuid');
 
+// Intentar cargar express-fileupload
+let fileUpload;
+try {
+    fileUpload = require('express-fileupload');
+    console.log('✅ express-fileupload cargado correctamente');
+} catch (error) {
+    console.error('❌ Error al cargar express-fileupload:', error.message);
+    console.log('⚠️ Instalando express-fileupload automáticamente...');
+    
+    try {
+        // Intentar instalar express-fileupload usando child_process
+        const { execSync } = require('child_process');
+        execSync('npm install express-fileupload --save', { stdio: 'inherit' });
+        console.log('✅ express-fileupload instalado correctamente');
+        fileUpload = require('express-fileupload');
+    } catch (installError) {
+        console.error('❌ Error al instalar express-fileupload:', installError.message);
+        console.log('⚠️ Por favor, instala manualmente con: npm install express-fileupload --save');
+        process.exit(1);
+    }
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -19,10 +41,17 @@ const HOST = process.env.HOST || '0.0.0.0';
 console.log('🚀 Iniciando WhatsApp Campaign Manager...');
 
 // Crear directorios necesarios
-const requiredDirs = ['./data', './uploads/excel', './uploads/media', './session'];
+const requiredDirs = [
+    './data', 
+    './uploads/excel', 
+    './uploads/media', 
+    './uploads/temp',
+    './session'
+];
 requiredDirs.forEach(dir => {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
+        console.log(`Directorio creado: ${dir}`);
     }
 });
 
@@ -42,6 +71,24 @@ app.use(cors({
 app.use(limiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Configurar express-fileupload
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024 },
+    useTempFiles: true,
+    tempFileDir: './uploads/temp/',
+    debug: true,
+    createParentPath: true
+}));
+
+// Middleware para depurar solicitudes
+app.use((req, res, next) => {
+    console.log(`📝 ${req.method} ${req.path}`);
+    if (req.files) {
+        console.log('📁 Archivos recibidos:', Object.keys(req.files));
+    }
+    next();
+});
 
 // Configuración de multer para diferentes tipos de archivos
 const createMulterConfig = (destination, allowedTypes) => {
@@ -84,6 +131,431 @@ const uploadMedia = createMulterConfig('./uploads/media/', /\.(jpe?g|png|gif|pdf
 
 // Servir archivos estáticos
 app.use('/uploads', express.static('uploads'));
+
+// Endpoint para enviar mensajes masivos desde Excel
+app.post('/api/send-excel-broadcast', async (req, res) => {
+    try {
+        console.log('Recibida solicitud de broadcast Excel');
+        
+        // Verificar si WhatsApp está conectado
+        if (!isClientReady) {
+            return res.status(503).json({
+                success: false,
+                error: 'WhatsApp no está conectado'
+            });
+        }
+
+        // Verificar si se recibió un archivo y un mensaje
+        console.log('Archivos recibidos:', req.files);
+        console.log('Cuerpo de la solicitud:', req.body);
+        
+        if (!req.files || !req.body.message) {
+            return res.status(400).json({
+                success: false,
+                error: 'Se requiere un archivo Excel y un mensaje'
+            });
+        }
+        
+        // El archivo puede venir con cualquier nombre de campo
+        let excelFile = null;
+        for (const fieldName in req.files) {
+            const file = req.files[fieldName];
+            if (file.mimetype.includes('excel') || 
+                file.mimetype.includes('spreadsheet') || 
+                file.name.endsWith('.xlsx') || 
+                file.name.endsWith('.xls') || 
+                file.name.endsWith('.csv')) {
+                excelFile = file;
+                break;
+            }
+        }
+        
+        if (!excelFile) {
+            return res.status(400).json({
+                success: false,
+                error: 'No se encontró un archivo Excel válido'
+            });
+        }
+        const messageTemplate = req.body.message;
+        const mediaFile = req.files.media;
+
+        console.log('Archivo Excel recibido:', excelFile.name);
+        console.log('Mensaje recibido:', messageTemplate);
+        if (mediaFile) {
+            console.log('Archivo media recibido:', mediaFile.name);
+        }
+
+        // Guardar el archivo Excel temporalmente
+        const excelPath = path.join(__dirname, 'uploads', 'excel', `${Date.now()}-${excelFile.name}`);
+        await excelFile.mv(excelPath);
+        console.log('Archivo Excel guardado en:', excelPath);
+
+        // Guardar el archivo de media si existe
+        let mediaPath = null;
+        if (mediaFile) {
+            mediaPath = path.join(__dirname, 'uploads', 'media', `${Date.now()}-${mediaFile.name}`);
+            await mediaFile.mv(mediaPath);
+            console.log('Archivo media guardado en:', mediaPath);
+        }
+
+        // Procesar el archivo Excel
+        const { contacts, errors } = processExcelBroadcast(excelPath, messageTemplate);
+        console.log(`Procesados ${contacts.length} contactos, con ${errors.length} errores`);
+
+        // Preparar resultados
+        const results = [];
+        let sent = 0;
+        let failed = 0;
+
+        // Enviar mensajes
+        for (const contact of contacts) {
+            try {
+                let sentMessage;
+                
+                if (mediaPath) {
+                    const media = MessageMedia.fromFilePath(mediaPath);
+                    sentMessage = await client.sendMessage(contact.phone, media, { caption: contact.message });
+                } else {
+                    sentMessage = await client.sendMessage(contact.phone, contact.message);
+                }
+
+                // Registrar mensaje enviado
+                const newMessage = {
+                    id: uuidv4(),
+                    to: contact.phone,
+                    from: 'me',
+                    message: contact.message,
+                    mediaUrl: mediaPath,
+                    status: 'sent',
+                    sentAt: new Date().toISOString(),
+                    messageId: sentMessage.id._serialized,
+                    contactName: contact.name || ''
+                };
+
+                messages.push(newMessage);
+
+                results.push({
+                    phone: contact.rawPhone,
+                    name: contact.name || '',
+                    status: 'sent',
+                    messageId: sentMessage.id._serialized
+                });
+
+                sent++;
+
+                // Esperar un poco entre mensajes para evitar bloqueos
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+            } catch (error) {
+                console.error(`Error enviando mensaje a ${contact.phone}:`, error);
+                
+                results.push({
+                    phone: contact.rawPhone,
+                    status: 'failed',
+                    error: error.message
+                });
+
+                failed++;
+            }
+        }
+
+        // Guardar mensajes
+        saveMessages();
+
+        // Limpiar archivos temporales
+        try {
+            fs.unlinkSync(excelPath);
+            if (mediaPath) fs.unlinkSync(mediaPath);
+        } catch (error) {
+            console.error('Error al eliminar archivos temporales:', error);
+        }
+
+        // Enviar respuesta
+        res.json({
+            success: true,
+            message: `Se enviaron ${sent} mensajes, fallaron ${failed}`,
+            data: {
+                total: contacts.length,
+                sent,
+                failed,
+                errors,
+                results
+            }
+        });
+
+    } catch (error) {
+        console.error('Error en broadcast:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error al enviar mensajes masivos: ' + error.message
+        });
+    }
+});
+
+// Función para procesar archivos Excel para broadcast
+function processExcelBroadcast(filePath, messageTemplate) {
+    try {
+        console.log('Procesando archivo Excel:', filePath);
+        console.log('Plantilla de mensaje:', messageTemplate);
+        
+        const workbook = XLSX.readFile(filePath);
+        const sheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(worksheet);
+        
+        console.log('Datos del Excel:', data);
+
+        const contacts = [];
+        const errors = [];
+
+        data.forEach((row, index) => {
+            try {
+                console.log(`Procesando fila ${index + 2}:`, row);
+                
+                // Buscar el campo de nombre (name o nombre)
+                let name = null;
+                if (row.name) {
+                    name = row.name.toString().trim();
+                } else if (row.nombre) {
+                    name = row.nombre.toString().trim();
+                } else if (row.Name) {
+                    name = row.Name.toString().trim();
+                } else if (row.Nombre) {
+                    name = row.Nombre.toString().trim();
+                }
+                
+                // Buscar el campo de teléfono (number o número)
+                let phone = null;
+                if (row.number) {
+                    phone = row.number.toString().trim();
+                } else if (row.numero) {
+                    phone = row.numero.toString().trim();
+                } else if (row.número) {
+                    phone = row.número.toString().trim();
+                } else if (row.Number) {
+                    phone = row.Number.toString().trim();
+                } else if (row.Numero) {
+                    phone = row.Numero.toString().trim();
+                } else if (row.Número) {
+                    phone = row.Número.toString().trim();
+                } else if (row.phone) {
+                    phone = row.phone.toString().trim();
+                } else if (row.Phone) {
+                    phone = row.Phone.toString().trim();
+                } else if (row.telefono) {
+                    phone = row.telefono.toString().trim();
+                } else if (row.Telefono) {
+                    phone = row.Telefono.toString().trim();
+                } else if (row.teléfono) {
+                    phone = row.teléfono.toString().trim();
+                } else if (row.Teléfono) {
+                    phone = row.Teléfono.toString().trim();
+                }
+                
+                console.log(`Nombre encontrado: "${name}", Teléfono encontrado: "${phone}"`);
+
+                if (!phone) {
+                    errors.push(`Fila ${index + 2}: Teléfono faltante`);
+                    return;
+                }
+
+                const cleanedPhone = cleanPhoneNumber(phone);
+                if (!cleanedPhone) {
+                    errors.push(`Fila ${index + 2}: Teléfono inválido (${phone})`);
+                    return;
+                }
+
+                // Preparar mensaje personalizado reemplazando variables
+                let personalizedMessage = messageTemplate;
+                
+                // Reemplazar {nombre} con el nombre del contacto
+                if (name) {
+                    personalizedMessage = personalizedMessage.replace(/{nombre}/g, name);
+                }
+                
+                // También reemplazar {name} por si acaso
+                if (name) {
+                    personalizedMessage = personalizedMessage.replace(/{name}/g, name);
+                }
+                
+                // Reemplazar otras variables del formato {{variable}}
+                Object.keys(row).forEach(key => {
+                    const placeholder = `{{${key}}}`;
+                    if (personalizedMessage.includes(placeholder)) {
+                        personalizedMessage = personalizedMessage.replace(
+                            new RegExp(placeholder, 'g'),
+                            row[key] || ''
+                        );
+                    }
+                });
+                
+                console.log(`Mensaje personalizado: "${personalizedMessage}"`);
+
+                contacts.push({
+                    phone: cleanedPhone,
+                    rawPhone: phone,
+                    name: name || '',
+                    message: personalizedMessage,
+                    data: row
+                });
+
+            } catch (error) {
+                console.error(`Error al procesar fila ${index + 2}:`, error);
+                errors.push(`Fila ${index + 2}: Error al procesar - ${error.message}`);
+            }
+        });
+        
+        console.log(`Procesamiento completado: ${contacts.length} contactos válidos, ${errors.length} errores`);
+
+        return { contacts, errors };
+
+    } catch (error) {
+        console.error('Error al procesar Excel:', error);
+        throw new Error(`Error al procesar Excel: ${error.message}`);
+    }
+}
+
+// Endpoint para campañas
+app.post('/api/campaigns', async (req, res) => {
+    try {
+        // Verificar si WhatsApp está conectado
+        if (!isClientReady) {
+            return res.status(503).json({
+                success: false,
+                error: 'WhatsApp no está conectado'
+            });
+        }
+
+        // Verificar si se recibieron los datos necesarios
+        if (!req.body.phones || !req.body.message) {
+            return res.status(400).json({
+                success: false,
+                error: 'Se requieren teléfonos y mensaje'
+            });
+        }
+
+        let phones;
+        try {
+            phones = JSON.parse(req.body.phones);
+            if (!Array.isArray(phones)) {
+                phones = [phones];
+            }
+        } catch (e) {
+            return res.status(400).json({
+                success: false,
+                error: 'Formato de teléfonos inválido'
+            });
+        }
+
+        const message = req.body.message;
+        let mediaFile = null;
+
+        // Verificar si hay un archivo adjunto
+        if (req.files && req.files.media) {
+            mediaFile = req.files.media;
+            
+            // Guardar el archivo temporalmente
+            const mediaPath = path.join(__dirname, 'uploads', 'media', `${Date.now()}-${mediaFile.name}`);
+            await mediaFile.mv(mediaPath);
+            mediaFile.path = mediaPath;
+        }
+
+        // Crear una nueva campaña
+        const campaignId = uuidv4();
+        const campaign = {
+            id: campaignId,
+            name: `Campaña ${new Date().toLocaleDateString()}`,
+            message: message,
+            status: 'sending',
+            contacts: phones.map(p => typeof p === 'string' ? p : p.toString()),
+            sent: 0,
+            failed: 0,
+            total: phones.length,
+            startedAt: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+
+        // Agregar la campaña a la lista
+        campaigns.push(campaign);
+        saveData();
+
+        // Enviar mensajes en segundo plano
+        (async () => {
+            for (const phone of phones) {
+                try {
+                    const cleanedPhone = cleanPhoneNumber(phone);
+                    if (!cleanedPhone) {
+                        campaign.failed++;
+                        continue;
+                    }
+
+                    let sentMessage;
+                    if (mediaFile) {
+                        const media = MessageMedia.fromFilePath(mediaFile.path);
+                        sentMessage = await client.sendMessage(cleanedPhone, media, { caption: message });
+                    } else {
+                        sentMessage = await client.sendMessage(cleanedPhone, message);
+                    }
+
+                    // Registrar mensaje enviado
+                    const newMessage = {
+                        id: uuidv4(),
+                        to: cleanedPhone,
+                        from: 'me',
+                        message: message,
+                        mediaUrl: mediaFile ? mediaFile.path : undefined,
+                        status: 'sent',
+                        sentAt: new Date().toISOString(),
+                        messageId: sentMessage.id._serialized,
+                        campaignId: campaignId
+                    };
+
+                    messages.push(newMessage);
+                    campaign.sent++;
+
+                    // Esperar un poco entre mensajes para evitar bloqueos
+                    await new Promise(resolve => setTimeout(resolve, settings.messageDelay || 1000));
+                } catch (error) {
+                    console.error(`Error enviando mensaje a ${phone}:`, error);
+                    campaign.failed++;
+                }
+            }
+
+            // Actualizar estado de la campaña
+            campaign.status = 'completed';
+            campaign.completedAt = new Date().toISOString();
+            campaign.updatedAt = new Date().toISOString();
+            saveData();
+            saveMessages();
+
+            // Limpiar archivo temporal si existe
+            if (mediaFile && mediaFile.path) {
+                try {
+                    fs.unlinkSync(mediaFile.path);
+                } catch (error) {
+                    console.error('Error al eliminar archivo temporal:', error);
+                }
+            }
+        })();
+
+        // Responder inmediatamente
+        res.json({
+            success: true,
+            data: {
+                success: true,
+                message: `Campaña iniciada con ${phones.length} contactos`,
+                campaignId: campaignId
+            }
+        });
+    } catch (error) {
+        console.error('Error al crear campaña:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error al crear campaña: ' + error.message
+        });
+    }
+});
 
 // Variables globales para WhatsApp
 let client = null;

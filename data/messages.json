@@ -4600,5 +4600,827 @@
     "status": "received",
     "receivedAt": "2025-07-18T21:40:38.507Z",
     "createdAt": "2025-07-18T21:40:38.507Z"
+  },
+  {
+    "id": "ef501250-3ea1-497c-a60a-0b48e928c8e8",
+    "from": "573122060600@c.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:18.478Z",
+    "messageId": "false_573122060600@c.us_3EB0CBBA45AC72C37837"
+  },
+  {
+    "id": "b78f7f74-5365-4c2d-9fe4-bf4a0ce04657",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "💈Buenos días las citas se van a manejar 💯% por la página es una herramienta muy facil y práctica 💈",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.390Z",
+    "messageId": "false_status@broadcast_ED2A5D323A4BFA362847C66C89AD4220_573002817334@c.us"
+  },
+  {
+    "id": "0351567f-0769-478c-acde-53bf12101542",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.485Z",
+    "messageId": "false_status@broadcast_A7283E5B6DF90B779EB80C8CEFAE184A_573002817334@c.us"
+  },
+  {
+    "id": "3d1f11b4-c230-4bd0-8a40-57bceafc43f6",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.498Z",
+    "messageId": "false_status@broadcast_5ECACD7277370B805CFD_573046121085@c.us"
+  },
+  {
+    "id": "20d68463-8c70-4db6-b15f-e9cf7674188b",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Blas",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.515Z",
+    "messageId": "false_status@broadcast_5EAED923A9D1A0E0511C_573046121085@c.us"
+  },
+  {
+    "id": "b265513d-313c-4edd-aff7-d613ec965bdf",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Cada vez mejores!👏🏻👏🏻👏🏻👏🏻👏🏻👏🏻\n\nhttps://www.facebook.com/share/p/1CeD4AKKJM/?mibextid=wwXIfr",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.529Z",
+    "messageId": "false_status@broadcast_3A9B02EEDB06516E0532_573046121085@c.us"
+  },
+  {
+    "id": "eab1118b-2912-47d0-96d2-6f45140edbb1",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Verte feliz me llena da mil años de vida 🥰🥰",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.545Z",
+    "messageId": "false_status@broadcast_3A2228802F04DDD5D3A1_573233089190@c.us"
+  },
+  {
+    "id": "116e15cd-afda-42b9-977a-9fbb6a0be943",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Lo amo mis viejos, se merecen todo lo bonito de esta vida 🥰❤️, disfruten mucho ese mar 🥰",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.568Z",
+    "messageId": "false_status@broadcast_3A48A0E835E83F090DDE_573233089190@c.us"
+  },
+  {
+    "id": "5473952a-9451-45ad-9bf4-9c34b4f36785",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Domicilios disponibles \n hoy hasta las 10:30pm\n📝📱🛵✔️💯\n🍟🍗🥓🤤😋",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.604Z",
+    "messageId": "false_status@broadcast_0E7048EC810DA95584AF50622C711D49_573023379842@c.us"
+  },
+  {
+    "id": "a98af365-82e2-45a6-9270-042ec279106b",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.674Z",
+    "messageId": "false_status@broadcast_FFD2C8CE3266B0DC2FAE02F13FFA3CDE_573023379842@c.us"
+  },
+  {
+    "id": "59518262-9043-4a02-ba9c-9f41d18af347",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.734Z",
+    "messageId": "false_status@broadcast_ABCE4266A8B3199E45FC028FEBE2852F_573023379842@c.us"
+  },
+  {
+    "id": "89584a4b-4087-4450-96fa-9e60a9d27fbc",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.758Z",
+    "messageId": "false_status@broadcast_A265FE3A25527DA45E0A42C0BFBE074B_573023379842@c.us"
+  },
+  {
+    "id": "2f24c965-69e1-4c3a-a419-471c1c7ded6b",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.775Z",
+    "messageId": "false_status@broadcast_89AB3813557E5112B11FD22699D34046_573023379842@c.us"
+  },
+  {
+    "id": "46bed618-fe51-4806-9c01-7c23ebc150b7",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.796Z",
+    "messageId": "false_status@broadcast_D38F787A918E01DFB30F2B616FB57A41_573023379842@c.us"
+  },
+  {
+    "id": "c2ff8800-f007-40d6-80ff-7214ddf4adb2",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.855Z",
+    "messageId": "false_status@broadcast_388638C3421FB2BA064EE913CB5086F3_573023379842@c.us"
+  },
+  {
+    "id": "b815f300-9aa1-44c2-a323-ca98b12fb2c1",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.896Z",
+    "messageId": "false_status@broadcast_9D55706440EB047DE82F1CCE36FC4257_573023379842@c.us"
+  },
+  {
+    "id": "9c0fffb3-6f4e-48ef-a468-26f264b53153",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.953Z",
+    "messageId": "false_status@broadcast_EC882AAA990252196F831EF5930A7F10_573023379842@c.us"
+  },
+  {
+    "id": "32f34854-b60f-4b53-ae52-9d96db1c9fd4",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Yo",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.967Z",
+    "messageId": "false_status@broadcast_BC1CBA715D9B093EE9B45C92F8D0A02B_573022197099@c.us"
+  },
+  {
+    "id": "162de0f2-081a-4f49-a9c2-3a874d500808",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Voy a estar haciendo sanduches para este fin de semana, por si me desean colaborar, pedidos al interno 🥰🥰 son muy ricooooss",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:34.990Z",
+    "messageId": "false_status@broadcast_3A75D9E7A46BCE929428_573134560283@c.us"
+  },
+  {
+    "id": "6007ce8f-9f41-48ce-adc8-ac5e93410488",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "😎🏍️",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.027Z",
+    "messageId": "false_status@broadcast_00BF0B56952B5B99DB1EEE46F65FDAFE_573218057261@c.us"
+  },
+  {
+    "id": "c947d3c9-32d9-4f45-9037-324ad139f803",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.050Z",
+    "messageId": "false_status@broadcast_B81DC158E39A9E481A1F0729FFAB2121_573002817334@c.us"
+  },
+  {
+    "id": "cc16892b-6bda-447b-8a64-f7e2f43c421b",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.072Z",
+    "messageId": "false_status@broadcast_3A37AD9694978BBF311E_573046121085@c.us"
+  },
+  {
+    "id": "7a57017b-9f11-43ad-8553-78d7c4159fb6",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.103Z",
+    "messageId": "false_status@broadcast_DA0117989AD494CF5814826637E91394_573215652500@c.us"
+  },
+  {
+    "id": "0ee37a43-a0a4-474f-b8db-4ab9c28b4616",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Que costosa soy 🥰🥰🥰",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.116Z",
+    "messageId": "false_status@broadcast_3ABDB81B6696BE25D3AF_573233089190@c.us"
+  },
+  {
+    "id": "64be1686-2e31-4ea7-90ab-325de64ec86d",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Déjate esto por acá y me marcharé lentamente",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.186Z",
+    "messageId": "false_status@broadcast_BF3CFEF0810F22C32D1BCBC0C9CA793C_573116013071@c.us"
+  },
+  {
+    "id": "bee39519-f873-46ec-b018-6e55e38ce9f4",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Nooo Ozzy 😭😭😭 jjsjsjsjs",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.208Z",
+    "messageId": "false_status@broadcast_4285B43340FDEEEB75EDBF72C02124A8_573058256739@c.us"
+  },
+  {
+    "id": "4f4b62c0-8b48-4717-b3dd-7ac391f85512",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Ella feliz rumbo a donde los abuelos y a disfrutar con la familia muy pronto llegará el monento de viajar con mamá  sabes q te amamos mucho Manuela gracias por este regalo q nos envías tan grande",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.274Z",
+    "messageId": "false_status@broadcast_3A21F2FFAFBCFE2318A0_573046121085@c.us"
+  },
+  {
+    "id": "595fe930-3f16-4a4b-90a2-4a10bdb6679d",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "El sábado en el hospital casi me dejan ocmo un colador :'(",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.306Z",
+    "messageId": "false_status@broadcast_E272F4FFDFF47B98647DE91388FB8A2D_573215652500@c.us"
+  },
+  {
+    "id": "49cdaf0b-16d9-4970-9b1e-5c8bca1e2ec5",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Reposaita",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.392Z",
+    "messageId": "false_status@broadcast_3ADA36CC9A3C89C38D00_573233089190@c.us"
+  },
+  {
+    "id": "dfe3b0ae-299a-426f-b1ab-f95d582e0c10",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "🫶",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.409Z",
+    "messageId": "false_status@broadcast_9E6CD905B50D7E7D2592B1FCCA1D416D_573194484523@c.us"
+  },
+  {
+    "id": "e3e2fa08-c421-4521-a6b9-74243a44d428",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.433Z",
+    "messageId": "false_status@broadcast_66479273DB816B8D6C4B05C1879D792C_573022197099@c.us"
+  },
+  {
+    "id": "c33750d5-9caf-4a8d-bb47-68ff4a472e16",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.447Z",
+    "messageId": "false_status@broadcast_3A191A15929C3D234E4D_34613852702@c.us"
+  },
+  {
+    "id": "1e22218e-b5e9-491b-8d0c-a4215ab5f0c3",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Muy am esperando el amor de mi vida    MIA",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.484Z",
+    "messageId": "false_status@broadcast_3A97E301519B53F94F1F_573046121085@c.us"
+  },
+  {
+    "id": "d5e29bb8-e33d-4cc9-a8a0-fa7697613095",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Y llego la reina",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.502Z",
+    "messageId": "false_status@broadcast_3AA615851E070D7E29A2_573046121085@c.us"
+  },
+  {
+    "id": "a9d3b8ed-c241-42aa-8568-5196c33414e2",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Que es esa falta de respeto",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.532Z",
+    "messageId": "false_status@broadcast_3A438EB19BA0BAC98BB7_573233089190@c.us"
+  },
+  {
+    "id": "c1cf2cbd-ce18-4eca-a44a-4f0fee51619d",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.582Z",
+    "messageId": "false_status@broadcast_3A14F3933C9D2522C701_573202885732@c.us"
+  },
+  {
+    "id": "9ed9a4fc-0399-459f-b2b8-2d6e954d177c",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.598Z",
+    "messageId": "false_status@broadcast_3AC64787ABC5A26C5907_34613852702@c.us"
+  },
+  {
+    "id": "22fddd74-2f31-4c6b-ba5d-e31de0c5db64",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Mi familia❤️‍🩹",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.645Z",
+    "messageId": "false_status@broadcast_3A482BCDE0E054E46045_573146280504@c.us"
+  },
+  {
+    "id": "9d2e3e2c-4267-486e-879a-864440430074",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "😘😘😘",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.676Z",
+    "messageId": "false_status@broadcast_5E3098AF998892860E45_573233089190@c.us"
+  },
+  {
+    "id": "d99d45c3-11a3-4a41-9182-ca2d6dbe367a",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Kia Sportage 2013",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.691Z",
+    "messageId": "false_status@broadcast_CAFF1D818779411F15653AB1F7BA31DA_573113937674@c.us"
+  },
+  {
+    "id": "db5deafe-d60e-4f30-92ad-4804d757411a",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Gasolina",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.709Z",
+    "messageId": "false_status@broadcast_F42061E9087ED3A04C0E92C1CEBFDD67_573113937674@c.us"
+  },
+  {
+    "id": "7c7d5423-f1a7-4077-8f03-25295de6f47c",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "167.000 km",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.726Z",
+    "messageId": "false_status@broadcast_67786452B2827C70161A9C7DA7A5C89C_573113937674@c.us"
+  },
+  {
+    "id": "0d62afce-4e4d-4c33-ac59-cf7709f63f87",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Aire acondicionado , buen enllantada , polarizada , equipo de sonido",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.738Z",
+    "messageId": "false_status@broadcast_04F45C496CA8CE32DD7545CCDD08CDAA_573113937674@c.us"
+  },
+  {
+    "id": "30ffd09e-0b46-46b0-82e0-a60928f0e61f",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.758Z",
+    "messageId": "false_status@broadcast_EDF77FF2870EE43BBC34F9EB542613B6_573113937674@c.us"
+  },
+  {
+    "id": "52209cc6-c580-4d54-b646-c755dd76ec1a",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.773Z",
+    "messageId": "false_status@broadcast_53391A4795D19193DEF63941430E7B59_573113937674@c.us"
+  },
+  {
+    "id": "e94951ae-660d-46c2-8e6b-bcc62fda12a8",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.788Z",
+    "messageId": "false_status@broadcast_CA2D58C551EF4B354EE755427D004DC3_573113937674@c.us"
+  },
+  {
+    "id": "6e83eb03-a63f-42ae-9838-daaa56539db6",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.808Z",
+    "messageId": "false_status@broadcast_2D2691252AF0D6508394E76A43521B63_573113937674@c.us"
+  },
+  {
+    "id": "b7e89fe1-256e-495e-be29-de26c03b496d",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.829Z",
+    "messageId": "false_status@broadcast_A5A84A1C9F3657C3551235E8CDF70605_573113937674@c.us"
+  },
+  {
+    "id": "ab2fcc3c-72f4-45cb-b02f-c9de5a55d870",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.859Z",
+    "messageId": "false_status@broadcast_98ACCFD5265BC52E6A67CE9FB66C1DE0_573113937674@c.us"
+  },
+  {
+    "id": "b0b0b208-aacb-47ae-8420-bc3c6413a171",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "Vendo, vendo!",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.880Z",
+    "messageId": "false_status@broadcast_21900FC34CC1E4D312208B701CE8026A_573113937674@c.us"
+  },
+  {
+    "id": "9f156d39-8d70-4290-8f00-45da7685286c",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "De cumpleaños soy talla conocer las ballenas 😭",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.904Z",
+    "messageId": "false_status@broadcast_3A9EFBF5154CC31F4305_573104932680@c.us"
+  },
+  {
+    "id": "5b9b22b4-29bd-42e0-9b7e-bfe01aa9317f",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:24:35.929Z",
+    "messageId": "false_status@broadcast_3D6B28FD36D1B27A30FEF97D0F2225E6_573023256411@c.us"
+  },
+  {
+    "id": "552c2ea3-3fed-4c9d-a651-f8d254ba415d",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:25:12.772Z",
+    "messageId": "false_status@broadcast_CB1868686E5BA7CB4D999F209FA8578B_573113937674@c.us"
+  },
+  {
+    "id": "bf91f11a-2cfd-4d7c-9d85-5158ac0c47ba",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:22.656Z",
+    "messageId": "false_status@broadcast_6AC7A301954FC4BB059ED7184D49BCBD_573113937674@c.us"
+  },
+  {
+    "id": "3f190c16-f39b-42d1-8887-45fab4393f41",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:32.257Z",
+    "messageId": "false_status@broadcast_96FE5818BB5F6763D00265FD414E335B_573113937674@c.us"
+  },
+  {
+    "id": "696acb22-a728-44b4-9f01-0aad7fe14944",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:33.278Z",
+    "messageId": "false_status@broadcast_A06A5988C47BB394C9028A31A6DFBC4B_573113937674@c.us"
+  },
+  {
+    "id": "af24cdc2-d3d3-4ce6-89cc-34838dd10bc9",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:35.254Z",
+    "messageId": "false_status@broadcast_1443B8FE186CB20E628E91EA589E21B2_573113937674@c.us"
+  },
+  {
+    "id": "cf89f788-a126-4cc0-bb81-4f3a0e0ec796",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:36.559Z",
+    "messageId": "false_status@broadcast_4EB5E059A9D4F6490F71E21CAC631A70_573113937674@c.us"
+  },
+  {
+    "id": "0ec70a0d-8886-46f8-82ba-33e996566f22",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:37.895Z",
+    "messageId": "false_status@broadcast_C73B230218442E2E79E61634B550048C_573113937674@c.us"
+  },
+  {
+    "id": "38ca004f-ed67-4608-9c20-a8f51b723749",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:39.248Z",
+    "messageId": "false_status@broadcast_8689F61AEB42A1F18D9C28F638AAA57F_573113937674@c.us"
+  },
+  {
+    "id": "2d5f7e68-2c4c-4fe3-9133-994506c20f49",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:39.815Z",
+    "messageId": "false_status@broadcast_AF1B0F6A43A96F244AF0466FF7FD1861_573113937674@c.us"
+  },
+  {
+    "id": "ec4c712b-de44-485d-adcf-75f278d3c69f",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:40.159Z",
+    "messageId": "false_status@broadcast_C20CEFA2F69B6DB54C246D0DF6837CBD_573113937674@c.us"
+  },
+  {
+    "id": "5d1ab7d8-01d4-4b25-ac0f-03816a23a6d0",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:40.424Z",
+    "messageId": "false_status@broadcast_5A2178EEDAEBB1B9A3C45C4C87EBC54B_573113937674@c.us"
+  },
+  {
+    "id": "5ef6315b-217a-43aa-a724-4874b4fc70ad",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:26:40.975Z",
+    "messageId": "false_status@broadcast_8DEED8FEB2D33E38173BE6CC997DD930_573113937674@c.us"
+  },
+  {
+    "id": "36a0bb89-9b12-4058-88e2-b94d26e902a9",
+    "from": "573202885732-1619802264@g.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:37:02.354Z",
+    "messageId": "false_573202885732-1619802264@g.us_F2FA398F3EE9BD0BDB0670F2DDDE8ED5_573167757768@c.us"
+  },
+  {
+    "id": "ded18afb-7da6-4c1a-9a80-ab01d8993767",
+    "from": "573202885732-1619802264@g.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:37:03.360Z",
+    "messageId": "false_573202885732-1619802264@g.us_44B915DD90593596C68EF94111AB2907_573167757768@c.us"
+  },
+  {
+    "id": "ab5bd833-1a35-40de-8700-ec17aefafde3",
+    "from": "573202885732-1619802264@g.us",
+    "to": "573022576761@c.us",
+    "message": "Interesados comuníquense con Eduardo Luzardo",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:37:23.211Z",
+    "messageId": "false_573202885732-1619802264@g.us_8710FCCE4B98BC6A66C1D03B6CD573E4_573167757768@c.us"
+  },
+  {
+    "id": "6a68fc05-e752-42e6-9eaa-1a491dd9d663",
+    "from": "573202885732-1619802264@g.us",
+    "to": "573022576761@c.us",
+    "message": "BEGIN:VCARD\nVERSION:3.0\nN:Luzardo;Eduardo;;;\nFN:Eduardo Luzardo\nTEL;type=Home:+57 301 5570830\nTEL;type=Mobile;waid=573506345363:+57 350 6345363\nEND:VCARD",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:37:35.791Z",
+    "messageId": "false_573202885732-1619802264@g.us_0A0DB9A3C012C995C42EE004F1E53BCE_573167757768@c.us"
+  },
+  {
+    "id": "88f9f8bf-e1a5-4767-878d-29119b245142",
+    "from": "573014807986@c.us",
+    "to": "573022576761@c.us",
+    "message": "oelo",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T16:59:27.105Z",
+    "messageId": "false_573014807986@c.us_3EB05239A72F0765FA2D6B"
+  },
+  {
+    "id": "f0d90d15-e702-4e50-8465-eb5c9561d96e",
+    "from": "573122022571@c.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:01:03.663Z",
+    "messageId": "false_573122022571@c.us_3A3EDAE14072B5EF94FA"
+  },
+  {
+    "id": "529ee6f0-68d5-41c5-8e57-284c36505fa0",
+    "from": "573122022571@c.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:01:11.110Z",
+    "messageId": "false_573122022571@c.us_3A2DF4D557364E7BF5BD"
+  },
+  {
+    "id": "07d63b5e-37f5-49f0-88a0-111d469a353b",
+    "from": "573122022571@c.us",
+    "to": "573022576761@c.us",
+    "message": "Pero si no te da hoy?, igual solo es hablar un momento y ya",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:01:31.387Z",
+    "messageId": "false_573122022571@c.us_3AACFC19B55FDE2E2347"
+  },
+  {
+    "id": "e864c0d0-53b7-4469-a878-606e04dc69a0",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:02:35.612Z",
+    "messageId": "false_status@broadcast_3A47FE13D0390573B821_573052756137@c.us"
+  },
+  {
+    "id": "85b0f7b5-c61e-4b12-8fc1-dc91592ae5cc",
+    "from": "14159445792@c.us",
+    "to": "573022576761@c.us",
+    "message": "*Hoy tienes 99% cashback en KFC*  🍗\nTe devolvemos máximo $25.000 en créditos en Rappi pot tu pedido de KFC. La promo más crocante de todas. Pide un Rappi. Aplican T&C.",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:03:01.693Z",
+    "messageId": "false_14159445792@c.us_83A2621A8E7DB835CB"
+  },
+  {
+    "id": "915b8e3f-9da2-4616-a271-3fa2ae6b0918",
+    "from": "573122022571@c.us",
+    "to": "573022576761@c.us",
+    "message": "Jajajaja no no pero si sería un momento y ya, que es para hablar de algo y ya",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:04:55.162Z",
+    "messageId": "false_573122022571@c.us_3AD05BE8A50068D4A504"
+  },
+  {
+    "id": "d6ff7f5c-46a1-4b01-8f16-7f4a85e30a69",
+    "to": "573022576761@c.us",
+    "from": "me",
+    "message": "hola {nombre}",
+    "mediaUrl": null,
+    "status": "sent",
+    "sentAt": "2025-07-23T17:30:57.802Z",
+    "messageId": "true_573022576761@c.us_3EB0E234AF5730E4AFFCED_out"
+  },
+  {
+    "id": "86fd60be-ef0b-4d67-b61c-34d62d8cb273",
+    "to": "573008517958@c.us",
+    "from": "me",
+    "message": "hola {nombre}",
+    "mediaUrl": null,
+    "status": "sent",
+    "sentAt": "2025-07-23T17:30:59.004Z",
+    "messageId": "true_573008517958@c.us_3EB0835B461B99E18BDA85"
+  },
+  {
+    "id": "bae806a9-0960-409e-a35b-8085a746aab0",
+    "from": "573014807986@c.us",
+    "to": "573022576761@c.us",
+    "message": "d1 parce, me avisas",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:32:56.021Z",
+    "messageId": "false_573014807986@c.us_3EB0A0C8B9745DC194EFFE"
+  },
+  {
+    "id": "a04b4a52-753e-4220-8487-84ca3290ed32",
+    "from": "573014807986@c.us",
+    "to": "573022576761@c.us",
+    "message": "ya estas almorzando o me puedes dar acceso al pc de la oficina ?",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:33:24.335Z",
+    "messageId": "false_573014807986@c.us_3EB0714F6BF893F9C21F69"
+  },
+  {
+    "id": "06c3be2d-556d-4867-926d-cdb2bf901a99",
+    "to": "573022576761@c.us",
+    "from": "me",
+    "message": "prueba David",
+    "mediaUrl": null,
+    "status": "sent",
+    "sentAt": "2025-07-23T17:39:30.806Z",
+    "messageId": "true_573022576761@c.us_3EB0E0C0A20B047E898413_out",
+    "contactName": "David"
+  },
+  {
+    "id": "ba0d5806-8bdc-44d1-9432-a895421a2e16",
+    "to": "573008517958@c.us",
+    "from": "me",
+    "message": "prueba Mariana",
+    "mediaUrl": null,
+    "status": "sent",
+    "sentAt": "2025-07-23T17:39:32.004Z",
+    "messageId": "true_573008517958@c.us_3EB0C5548DD80FAA4BB974",
+    "contactName": "Mariana"
+  },
+  {
+    "id": "93606103-8525-4922-8561-f311babd0c69",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:40:20.127Z",
+    "messageId": "false_status@broadcast_3AAAD350A999A18663D2_573052756137@c.us"
   }
 ]
