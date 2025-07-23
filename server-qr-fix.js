@@ -105,7 +105,7 @@ client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true });
     
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-    console.log('📱 También disponible en: http://localhost:3000/api/qr');
+    console.log('📱 También disponible en: https://whatsapp-backend-stoe.onrender.com/api/api/qr');
     console.log('🌐 Frontend: http://localhost:4200');
     console.log('⏰ El QR expira en 20 segundos, se generará uno nuevo automáticamente');
 });

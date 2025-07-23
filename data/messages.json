@@ -5422,5 +5422,35 @@
     "status": "received",
     "timestamp": "2025-07-23T17:40:20.127Z",
     "messageId": "false_status@broadcast_3AAAD350A999A18663D2_573052756137@c.us"
+  },
+  {
+    "id": "2c65b635-b62d-43c1-a434-b64fc53c7961",
+    "from": "573122022571@c.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:52:52.319Z",
+    "messageId": "false_573122022571@c.us_3AA62DD96FC6662DF801"
+  },
+  {
+    "id": "a6f4b2e2-799c-408a-a6e0-278949a8c6c0",
+    "from": "status@broadcast",
+    "to": "573022576761@c.us",
+    "message": "🙈🙈🙈",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T17:54:41.249Z",
+    "messageId": "false_status@broadcast_5E25CBCEAC4B519277830C92E83D48AF_573046780454@c.us"
+  },
+  {
+    "id": "2d16330f-a97b-48dd-8377-f49cd1374616",
+    "from": "573008517958@c.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-23T18:12:20.178Z",
+    "messageId": "false_573008517958@c.us_3AE5AE6A7539B7B33D16"
   }
 ]

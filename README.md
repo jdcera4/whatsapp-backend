@@ -45,7 +45,7 @@ Backend para el panel de administración de WhatsApp, construido con Node.js, Ex
 
 2. Escanear el código QR que aparece en la consola con tu teléfono móvil (usando la aplicación de WhatsApp)
 
-3. El servidor estará disponible en `http://localhost:3000`
+3. El servidor estará disponible en `https://whatsapp-backend-stoe.onrender.com/api`
 
 ## API Endpoints
 
