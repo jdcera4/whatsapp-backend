@@ -1,0 +1,13 @@
+{
+  "welcomeMessage": "Hola, como puedo ayudarte",
+  "autoReply": false,
+  "workingHours": {
+    "start": "08:00",
+    "end": "18:00"
+  },
+  "autoReplyMessage": "Estamos fuera de servicio",
+  "keywords": {},
+  "timezone": "America/Bogota",
+  "messageDelay": 2000,
+  "batchSize": 50
+}

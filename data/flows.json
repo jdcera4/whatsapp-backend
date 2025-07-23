@@ -1,0 +1,16 @@
+[
+  {
+    "id": "5af49e46-d8c7-47c9-83d7-04c17ce991fd",
+    "name": "test",
+    "description": "test desc",
+    "isActive": true,
+    "steps": []
+  },
+  {
+    "id": "792d9400-4d9b-4d30-accb-5b3d1ccd3796",
+    "name": "test",
+    "description": "test desc",
+    "isActive": true,
+    "steps": []
+  }
+]

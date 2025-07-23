@@ -1,0 +1,39 @@
+[
+  {
+    "id": "1752695709733",
+    "name": "Envío programado - 16/7/2025, 3:00:00 p. m.",
+    "message": "{nombre} care nalga",
+    "mediaPath": null,
+    "mediaType": null,
+    "contacts": [
+      {
+        "id": "1752695709671-0",
+        "name": "David",
+        "phone": "573022576761@c.us",
+        "rawPhone": "3022576761",
+        "source": "excel_import",
+        "importedAt": "2025-07-16T19:55:09.671Z"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2025-07-16T19:55:09.735Z",
+    "startedAt": "2025-07-16T20:00:00.013Z",
+    "completedAt": "2025-07-16T20:00:01.602Z",
+    "scheduledFor": "2025-07-16T20:00:00.000Z",
+    "progress": {
+      "total": 1,
+      "sent": 1,
+      "failed": 0,
+      "pending": 0
+    },
+    "results": [
+      {
+        "phone": "573022576761@c.us",
+        "name": "David",
+        "status": "sent",
+        "messageId": "3EB0A7EE47CAA2C27C2652",
+        "timestamp": 1752696000
+      }
+    ]
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sample-1",
+    "name": "Juan Pérez",
+    "phone": "573001234567@c.us",
+    "source": "manual",
+    "createdAt": "2025-07-17T14:50:02.440Z",
+    "updatedAt": "2025-07-17T14:50:02.440Z"
+  },
+  {
+    "id": "sample-2",
+    "name": "María García",
+    "phone": "573009876543@c.us",
+    "source": "excel_import",
+    "createdAt": "2025-07-17T14:50:02.440Z",
+    "updatedAt": "2025-07-17T14:50:02.440Z"
+  },
+  {
+    "id": "sample-3",
+    "name": "Carlos López",
+    "phone": "573005555555@c.us",
+    "source": "manual",
+    "createdAt": "2025-07-17T14:50:02.440Z",
+    "updatedAt": "2025-07-17T14:50:02.440Z"
+  }
+]
