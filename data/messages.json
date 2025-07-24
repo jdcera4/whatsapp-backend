@@ -12108,5 +12108,35 @@
     "status": "received",
     "timestamp": "2025-07-24T19:28:01.317Z",
     "messageId": "false_573146246659@c.us_3A5A06E81877F691BEC9"
+  },
+  {
+    "id": "f6bbd717-7266-4321-bfc4-d36fb67aa4e3",
+    "from": "573102838983@c.us",
+    "to": "573215458434@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-24T19:28:09.763Z",
+    "messageId": "false_573102838983@c.us_40E31E81AC353E97E404427457FA93D5"
+  },
+  {
+    "id": "7eef0911-13c6-44a0-9616-1e74e2101f8e",
+    "from": "573103772437@c.us",
+    "to": "573215458434@c.us",
+    "message": "Bien, gracias!",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-24T19:28:17.912Z",
+    "messageId": "false_573103772437@c.us_35C6A60885461DA25A166EF6CB84198E"
+  },
+  {
+    "id": "660f1611-168a-4cbf-ab56-6b2e75ae38a4",
+    "from": "573173760814@c.us",
+    "to": "573215458434@c.us",
+    "message": "Ay Valentina qué bonita 🥲 \nCalle 125 # 19-24 piso 6\nBarrio Santa Barbara \nBogotá",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-24T19:28:21.558Z",
+    "messageId": "false_573173760814@c.us_3A13638372156D9BBF7F"
   }
 ]
