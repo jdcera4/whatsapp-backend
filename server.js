@@ -563,6 +563,8 @@ let isClientReady = false;
 let qrCodeData = null;
 let clientInfo = null;
 let campaigns = [];
+let qrGenerated = false; // Flag to track if QR has been generated
+let qrGenerationTime = null; // Track when QR was generated
 let contacts = [];
 let messages = [];
 let flows = [];
@@ -671,9 +673,23 @@ function initializeWhatsAppClient() {
     });
 
     client.on('qr', async (qr) => {
-        console.log('📱 Código QR generado');
-        qrCodeData = await QRCode.toDataURL(qr);
-        qrcode.generate(qr, { small: true });
+        if (!qrGenerated) {
+            console.log('📱 Código QR generado');
+            console.log('🔍 Escanea este código QR con tu teléfono para iniciar sesión en WhatsApp');
+            
+            // Mostrar el QR en la consola
+            qrcode.generate(qr, { small: false });
+            
+            // También guardar el QR como URL de datos
+            qrCodeData = await QRCode.toDataURL(qr);
+            
+            // Mostrar la URL del código QR en la consola
+            console.log('\n🌐 O abre este enlace en tu navegador para ver el código QR:');
+            console.log(`http://localhost:3000/api/qr`);
+            
+            qrGenerated = true;
+            qrGenerationTime = new Date();
+        }
     });
 
     client.on('ready', () => {
@@ -681,6 +697,7 @@ function initializeWhatsAppClient() {
         isClientReady = true;
         clientInfo = client.info;
         qrCodeData = null;
+        qrGenerated = false; // Reset QR flag when ready
     });
 
     client.on('authenticated', () => {
@@ -691,6 +708,8 @@ function initializeWhatsAppClient() {
         console.error('❌ Fallo de autenticación:', msg);
         isClientReady = false;
         qrCodeData = null;
+        qrGenerated = false; // Reset QR flag on auth failure
+        qrGenerationTime = null;
     });
 
     client.on('disconnected', (reason) => {
@@ -698,6 +717,8 @@ function initializeWhatsAppClient() {
         isClientReady = false;
         clientInfo = null;
         qrCodeData = null;
+        qrGenerated = false; // Reset QR flag on disconnection
+        qrGenerationTime = null;
     });
 
     client.on('message', async (message) => {
@@ -722,8 +743,95 @@ function initializeWhatsAppClient() {
     client.initialize();
 }
 
+// Función para cerrar sesión
+function logoutWhatsApp() {
+    return new Promise((resolve, reject) => {
+        if (!client) {
+            return resolve({ success: true, message: 'No active session' });
+        }
+
+        console.log('🔒 Cerrando sesión de WhatsApp...');
+        
+        // Guardar el estado actual
+        const wasReady = isClientReady;
+        
+        // Resetear el estado
+        isClientReady = false;
+        clientInfo = null;
+        qrCodeData = null;
+        qrGenerated = false;
+        qrGenerationTime = null;
+
+        // Cerrar el cliente
+        client.destroy().then(() => {
+            console.log('✅ Sesión de WhatsApp cerrada correctamente');
+            client = null;
+            
+            // Esperar un momento para que se liberen los recursos
+            setTimeout(() => {
+                // Limpiar la sesión manualmente
+                const sessionPath = path.join(__dirname, 'session', 'session-whatsapp-campaign-manager');
+                if (fs.existsSync(sessionPath)) {
+                    try {
+                        // Renombrar la carpeta de sesión en lugar de eliminarla
+                        const timestamp = new Date().getTime();
+                        const newPath = `${sessionPath}-old-${timestamp}`;
+                        fs.renameSync(sessionPath, newPath);
+                        console.log(`✅ Carpeta de sesión renombrada a: ${path.basename(newPath)}`);
+                    } catch (error) {
+                        console.warn('⚠️ No se pudo renombrar la carpeta de sesión:', error.message);
+                    }
+                }
+                
+                // Volver a inicializar el cliente
+                initializeWhatsAppClient();
+                resolve({ success: true, message: 'Sesión cerrada correctamente' });
+            }, 2000); // Esperar 2 segundos antes de reiniciar
+            
+        }).catch(error => {
+            console.error('❌ Error al cerrar sesión:', error);
+            // Forzar la limpieza del cliente aunque falle el cierre
+            client = null;
+            initializeWhatsAppClient();
+            reject({ success: false, error: 'Error al cerrar sesión: ' + error.message });
+        });
+    });
+}
+
 // Inicializar cliente
 initializeWhatsAppClient();
+
+// Endpoint para obtener el código QR actual
+app.get('/api/qr', (req, res) => {
+    if (!qrCodeData) {
+        return res.status(404).json({
+            success: false,
+            message: 'No hay un código QR disponible actualmente. Por favor, espera a que se genere uno nuevo.'
+        });
+    }
+
+    // Enviar el QR como imagen
+    const img = Buffer.from(qrCodeData.split(',')[1], 'base64');
+    res.writeHead(200, {
+        'Content-Type': 'image/png',
+        'Content-Length': img.length
+    });
+    res.end(img);
+});
+
+// Endpoint para cerrar sesión
+app.post('/api/logout', async (req, res) => {
+    try {
+        const result = await logoutWhatsApp();
+        res.json(result);
+    } catch (error) {
+        console.error('Error en /api/logout:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error al cerrar sesión: ' + error.message
+        });
+    }
+});
 
 // Manejo de cierre limpio
 process.on('SIGINT', async () => {
@@ -882,7 +990,12 @@ app.post('/api/generate-qr', (req, res) => {
             client.destroy().catch(console.error);
         }
 
+        // Reset all QR related flags and data
         qrCodeData = null;
+        qrGenerated = false;
+        qrGenerationTime = null;
+        
+        // Initialize new client
         initializeWhatsAppClient();
 
         res.json({
@@ -893,7 +1006,8 @@ app.post('/api/generate-qr', (req, res) => {
         console.error('Error al generar QR:', error);
         res.status(500).json({
             success: false,
-            message: 'Error al generar código QR'
+            message: 'Error al generar código QR',
+            error: error.message
         });
     }
 });
