@@ -38,7 +38,17 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
-console.log('🚀 Iniciando WhatsApp Campaign Manager...');
+// Configurar manejadores de errores globales
+process.on('uncaughtException', (error) => {
+    console.error('⚠️  Error no capturado:', error);
+    console.error('Stack:', error.stack);
+    process.exit(1); // Salir con error
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('⚠️  Promesa rechazada no manejada:', reason);
+    console.error('Promesa:', promise);
+});
 
 // Crear directorios necesarios
 const requiredDirs = [
@@ -48,6 +58,7 @@ const requiredDirs = [
     './uploads/temp',
     './session'
 ];
+
 requiredDirs.forEach(dir => {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
@@ -666,13 +677,17 @@ loadData();
 // Inicializar cliente WhatsApp
 function initializeWhatsAppClient() {
     console.log('🔄 Inicializando cliente WhatsApp...');
+    
+    // Resetear el estado del QR
+    qrCodeData = null;
+    qrGenerated = false;
+    isClientReady = false;
 
-    client = new Client({
-        authStrategy: new LocalAuth({
-            clientId: "whatsapp-campaign-manager",
-            dataPath: "./session"
-        }),
-        puppeteer: {
+    try {
+        console.log('🔄 Configurando cliente de WhatsApp...');
+        
+        // Configuración de Puppeteer optimizada para Windows
+        const puppeteerConfig = {
             headless: true,
             args: [
                 '--no-sandbox',
@@ -681,22 +696,86 @@ function initializeWhatsAppClient() {
                 '--disable-accelerated-2d-canvas',
                 '--no-first-run',
                 '--no-zygote',
-                '--single-process',
-                '--disable-gpu'
+                '--disable-gpu',
+                '--disable-software-rasterizer',
+                '--disable-web-security',
+                '--disable-features=VizDisplayCompositor',
+                '--disable-blink-features=AutomationControlled',
+                '--disable-extensions',
+                '--disable-plugins',
+                '--disable-images',
+                '--disable-javascript',
+                '--disable-default-apps',
+                '--disable-background-timer-throttling',
+                '--disable-backgrounding-occluded-windows',
+                '--disable-renderer-backgrounding',
+                '--disable-field-trial-config',
+                '--disable-back-forward-cache',
+                '--disable-ipc-flooding-protection'
             ]
+        };
+
+        // Solo agregar executablePath si estamos en Windows y Chrome está disponible
+        if (process.platform === 'win32') {
+            const possibleChromePaths = [
+                'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+                'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+                process.env.CHROME_BIN,
+                process.env.GOOGLE_CHROME_BIN
+            ].filter(Boolean);
+
+            for (const chromePath of possibleChromePaths) {
+                if (fs.existsSync(chromePath)) {
+                    puppeteerConfig.executablePath = chromePath;
+                    console.log(`✅ Chrome encontrado en: ${chromePath}`);
+                    break;
+                }
+            }
+
+            if (!puppeteerConfig.executablePath) {
+                console.log('⚠️ Chrome no encontrado, usando Chromium por defecto');
+            }
         }
+
+        client = new Client({
+            authStrategy: new LocalAuth({
+                clientId: "whatsapp-campaign-manager",
+                dataPath: "./session"
+            }),
+            puppeteer: puppeteerConfig,
+            // Configuración adicional para evitar problemas de versión
+            webVersionCache: {
+                type: 'remote',
+                remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html',
+            },
+            // Forzar la generación de un nuevo QR
+            restartOnAuthFail: true,
+            takeoverOnConflict: true,
+            takeoverTimeoutMs: 10000
+        });
+        
+        console.log('✅ Cliente de WhatsApp configurado correctamente');
+    } catch (error) {
+        console.error('❌ Error al configurar el cliente de WhatsApp:', error);
+        throw error; // Relanzar el error para manejarlo en el nivel superior
+    }
+
+    let qrCodeResolve;
+    const qrCodePromise = new Promise(resolve => {
+        qrCodeResolve = resolve;
     });
 
     client.on('qr', async (qr) => {
-        if (!qrGenerated) {
-            console.log('📱 Código QR generado');
-            console.log('🔍 Escanea este código QR con tu teléfono para iniciar sesión en WhatsApp');
-            
-            // Mostrar el QR en la consola
-            qrcode.generate(qr, { small: false });
-            
-            // También guardar el QR como URL de datos
+        console.log('📱 Código QR generado');
+        console.log('🔍 Escanea este código QR con tu teléfono para iniciar sesión en WhatsApp');
+        
+        // Mostrar el QR en la consola
+        qrcode.generate(qr, { small: false });
+        
+        try {
+            // Generar y guardar el QR como URL de datos
             qrCodeData = await QRCode.toDataURL(qr);
+            console.log('✅ Código QR convertido a Data URL');
             
             // Mostrar la URL del código QR en la consola
             console.log('\n🌐 O abre este enlace en tu navegador para ver el código QR:');
@@ -704,6 +783,15 @@ function initializeWhatsAppClient() {
             
             qrGenerated = true;
             qrGenerationTime = new Date();
+            
+            // Resolver la promesa cuando el QR esté listo
+            if (qrCodeResolve) {
+                qrCodeResolve(qrCodeData);
+                qrCodeResolve = null;
+            }
+        } catch (error) {
+            console.error('❌ Error al generar el código QR:', error);
+            qrCodeData = null;
         }
     });
 
@@ -734,6 +822,11 @@ function initializeWhatsAppClient() {
         qrCodeData = null;
         qrGenerated = false; // Reset QR flag on disconnection
         qrGenerationTime = null;
+    });
+
+    // Inicializar el cliente
+    client.initialize().catch(error => {
+        console.error('❌ Error al inicializar el cliente WhatsApp:', error);
     });
 
     client.on('message', async (message) => {
@@ -931,16 +1024,36 @@ app.get('/api/status', (req, res) => {
 });
 
 // Endpoint para obtener estado del QR
-app.get('/api/qr-status', (req, res) => {
-    res.json({
-        success: true,
-        data: {
-            qrCode: qrCodeData,
-            isClientReady: isClientReady,
-            clientInfo: clientInfo,
-            needsQR: !isClientReady && !qrCodeData
+app.get('/api/qr-status', async (req, res) => {
+    try {
+        // Si no hay QR generado y el cliente no está listo, forzar la generación
+        if (!qrCodeData && !isClientReady && client) {
+            try {
+                // Forzar generación de nuevo QR
+                await client.initialize();
+                // Esperar un momento para que se genere el QR
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            } catch (error) {
+                console.error('Error al forzar generación de QR:', error);
+            }
         }
-    });
+
+        res.json({
+            success: true,
+            data: {
+                qrCode: qrCodeData,
+                isClientReady: isClientReady,
+                clientInfo: clientInfo,
+                needsQR: !isClientReady && !qrCodeData
+            }
+        });
+    } catch (error) {
+        console.error('Error en /api/qr-status:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error al obtener el estado del QR: ' + error.message
+        });
+    }
 });
 
 // Endpoint para conectar WhatsApp
@@ -999,26 +1112,30 @@ app.post('/api/generate-qr', (req, res) => {
                 message: 'WhatsApp ya está conectado'
             });
         }
-
-        // Reinicializar cliente para generar nuevo QR
-        if (client) {
-            client.destroy().catch(console.error);
-        }
-
-        // Reset all QR related flags and data
-        qrCodeData = null;
+        
+        // Reset QR flags
         qrGenerated = false;
+        qrCodeData = null;
         qrGenerationTime = null;
         
-        // Initialize new client
+        // Cerrar el cliente existente si existe
+        if (client) {
+            client.destroy().catch(error => {
+                console.error('Error al destruir el cliente existente:', error);
+            });
+            client = null;
+        }
+        
+        // Inicializar un nuevo cliente
         initializeWhatsAppClient();
-
+        
         res.json({
             success: true,
-            message: 'Generando nuevo código QR...'
+            message: 'Generando nuevo código QR...',
+            qrUrl: 'http://localhost:3000/api/qr'
         });
     } catch (error) {
-        console.error('Error al generar QR:', error);
+        console.error('Error en /api/generate-qr:', error);
         res.status(500).json({
             success: false,
             message: 'Error al generar código QR',
