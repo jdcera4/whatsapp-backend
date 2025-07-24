@@ -12088,5 +12088,25 @@
     "status": "received",
     "timestamp": "2025-07-24T19:27:46.771Z",
     "messageId": "false_573153338113@c.us_3A5E77A15E10AFB2F456"
+  },
+  {
+    "id": "21d33a60-05ce-4bbe-b821-a810e93d4e69",
+    "from": "573146246659@c.us",
+    "to": "573215458434@c.us",
+    "message": "Super",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-24T19:27:53.398Z",
+    "messageId": "false_573146246659@c.us_3A5B1B41C826E2BBA5F5"
+  },
+  {
+    "id": "fb6b7a80-a27a-4f40-99eb-40db4d5c3052",
+    "from": "573146246659@c.us",
+    "to": "573215458434@c.us",
+    "message": "Te doy la dirección?",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-24T19:28:01.317Z",
+    "messageId": "false_573146246659@c.us_3A5A06E81877F691BEC9"
   }
 ]
