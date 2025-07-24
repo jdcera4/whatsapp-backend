@@ -6614,5 +6614,35 @@
     "sentAt": "2025-07-24T17:16:39.640Z",
     "messageId": "true_573008517958@c.us_3EB0345C0684BA5CC7F577",
     "contactName": "Mariana"
+  },
+  {
+    "id": "b4fa13b3-d9f4-4b13-9f2f-85bc42b3bce6",
+    "from": "573046780454@c.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-24T18:04:39.711Z",
+    "messageId": "false_573046780454@c.us_3EB0C46E2E0116D82F64"
+  },
+  {
+    "id": "92c3e1ac-51bb-45b5-912c-0a1a278d1e2f",
+    "from": "573046780454@c.us",
+    "to": "573022576761@c.us",
+    "message": "",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-24T18:04:39.841Z",
+    "messageId": "false_573046780454@c.us_97BF4423B289F29FD8ACC7FD1024FA82"
+  },
+  {
+    "id": "90dd1686-2c0b-4c7f-9075-30d0c475dac8",
+    "from": "573046780454@c.us",
+    "to": "573022576761@c.us",
+    "message": "Shi",
+    "type": "received",
+    "status": "received",
+    "timestamp": "2025-07-24T18:08:22.917Z",
+    "messageId": "false_573046780454@c.us_3F6BE9A344AF09A177BA4C63FA23CA53"
   }
 ]
