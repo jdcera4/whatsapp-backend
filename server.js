@@ -207,55 +207,70 @@ app.post('/api/send-excel-broadcast', async (req, res) => {
         let sent = 0;
         let failed = 0;
 
-        // Enviar mensajes
-        for (const contact of contacts) {
-            try {
-                let sentMessage;
-                
-                if (mediaPath) {
-                    const media = MessageMedia.fromFilePath(mediaPath);
-                    sentMessage = await client.sendMessage(contact.phone, media, { caption: contact.message });
-                } else {
-                    sentMessage = await client.sendMessage(contact.phone, contact.message);
+        // Enviar mensajes en lotes
+        const BATCH_SIZE = 5; // Tamaño del lote
+        const DELAY_BETWEEN_BATCHES = 10000; // 10 segundos entre lotes
+        
+        for (let i = 0; i < contacts.length; i += BATCH_SIZE) {
+            const batch = contacts.slice(i, i + BATCH_SIZE);
+            
+            for (const contact of batch) {
+                try {
+                    // Enviar mensaje con reintentos
+                    const { success, message: sentMessage, error: sendError } = 
+                        await sendMessageWithRetry(contact.phone, contact.message, mediaPath);
+                    
+                    if (success) {
+                        // Registrar mensaje enviado
+                        const newMessage = {
+                            id: uuidv4(),
+                            to: contact.phone,
+                            from: 'me',
+                            message: contact.message,
+                            mediaUrl: mediaPath,
+                            status: 'sent',
+                            sentAt: new Date().toISOString(),
+                            messageId: sentMessage.id._serialized,
+                            contactName: contact.name || ''
+                        };
+
+                        messages.push(newMessage);
+
+                        results.push({
+                            phone: contact.rawPhone,
+                            name: contact.name || '',
+                            status: 'sent',
+                            messageId: sentMessage.id._serialized
+                        });
+
+                        sent++;
+                    } else {
+                        throw new Error(sendError);
+                    }
+
+                } catch (error) {
+                    console.error(`Error enviando mensaje a ${contact.phone}:`, error);
+                    
+                    results.push({
+                        phone: contact.rawPhone || contact.rawPhone || 'Desconocido',
+                        name: contact.name || '',
+                        status: 'failed',
+                        error: error.message
+                    });
+
+                    failed++;
                 }
-
-                // Registrar mensaje enviado
-                const newMessage = {
-                    id: uuidv4(),
-                    to: contact.phone,
-                    from: 'me',
-                    message: contact.message,
-                    mediaUrl: mediaPath,
-                    status: 'sent',
-                    sentAt: new Date().toISOString(),
-                    messageId: sentMessage.id._serialized,
-                    contactName: contact.name || ''
-                };
-
-                messages.push(newMessage);
-
-                results.push({
-                    phone: contact.rawPhone,
-                    name: contact.name || '',
-                    status: 'sent',
-                    messageId: sentMessage.id._serialized
-                });
-
-                sent++;
-
-                // Esperar un poco entre mensajes para evitar bloqueos
-                await new Promise(resolve => setTimeout(resolve, 1000));
-
-            } catch (error) {
-                console.error(`Error enviando mensaje a ${contact.phone}:`, error);
+            }
+            
+            // Esperar entre lotes
+            if (i + BATCH_SIZE < contacts.length) {
+                console.log(`⏳ Esperando ${DELAY_BETWEEN_BATCHES/1000} segundos antes del siguiente lote...`);
+                await new Promise(resolve => setTimeout(resolve, DELAY_BETWEEN_BATCHES));
                 
-                results.push({
-                    phone: contact.rawPhone,
-                    status: 'failed',
-                    error: error.message
-                });
-
-                failed++;
+                // Verificar conexión entre lotes
+                if (!await ensureWhatsAppConnection()) {
+                    throw new Error('Se perdió la conexión con WhatsApp durante el envío');
+                }
             }
         }
 
@@ -1139,6 +1154,85 @@ app.post('/api/contacts/import', uploadExcel.single('file'), (req, res) => {
     }
 });
 
+// Función para verificar y restaurar la conexión de WhatsApp
+async function ensureWhatsAppConnection() {
+    if (isClientReady && client) {
+        return true;
+    }
+
+    console.log('🔁 Intentando restaurar la conexión de WhatsApp...');
+    
+    try {
+        // Si hay un cliente existente pero no está listo, intentar destruirlo
+        if (client) {
+            try {
+                await client.destroy();
+            } catch (e) {
+                console.warn('⚠️ Error al destruir el cliente existente:', e.message);
+            }
+        }
+
+        // Inicializar un nuevo cliente
+        initializeWhatsAppClient();
+        
+        // Esperar a que el cliente esté listo (máximo 30 segundos)
+        const maxWaitTime = 30000; // 30 segundos
+        const startTime = Date.now();
+        
+        while (!isClientReady && (Date.now() - startTime) < maxWaitTime) {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+        
+        if (!isClientReady) {
+            throw new Error('No se pudo establecer la conexión con WhatsApp');
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('❌ Error al restaurar la conexión de WhatsApp:', error);
+        return false;
+    }
+}
+
+// Función para enviar un mensaje con reintentos
+async function sendMessageWithRetry(phone, message, mediaPath = null, maxRetries = 3) {
+    let lastError = null;
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            // Verificar conexión antes de cada intento
+            if (!await ensureWhatsAppConnection()) {
+                throw new Error('No se pudo establecer conexión con WhatsApp');
+            }
+            
+            let sentMessage;
+            if (mediaPath) {
+                const media = MessageMedia.fromFilePath(mediaPath);
+                sentMessage = await client.sendMessage(phone, media, { caption: message });
+            } else {
+                sentMessage = await client.sendMessage(phone, message);
+            }
+            
+            return { success: true, message: sentMessage };
+            
+        } catch (error) {
+            lastError = error;
+            console.warn(`⚠️ Intento ${attempt} fallido para ${phone}:`, error.message);
+            
+            // Esperar antes de reintentar (backoff exponencial)
+            if (attempt < maxRetries) {
+                const delay = Math.min(1000 * Math.pow(2, attempt), 10000); // Hasta 10 segundos
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        }
+    }
+    
+    return { 
+        success: false, 
+        error: `No se pudo enviar el mensaje después de ${maxRetries} intentos: ${lastError.message}`
+    };
+}
+
 // Endpoint para enviar mensaje individual
 app.post('/api/messages', async (req, res) => {
     try {
@@ -1166,12 +1260,12 @@ app.post('/api/messages', async (req, res) => {
             });
         }
 
-        let sentMessage;
-        if (mediaUrl) {
-            const media = MessageMedia.fromFilePath(mediaUrl);
-            sentMessage = await client.sendMessage(cleanedPhone, media, { caption: message });
-        } else {
-            sentMessage = await client.sendMessage(cleanedPhone, message);
+        // Enviar mensaje con reintentos
+        const { success, message: sentMessage, error: sendError } = 
+            await sendMessageWithRetry(cleanedPhone, message, mediaUrl);
+            
+        if (!success) {
+            throw new Error(sendError);
         }
 
         const newMessage = {
